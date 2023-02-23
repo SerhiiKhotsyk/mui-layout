@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { Box, Stack } from "@mui/material";
+import { useState } from "react";
+import AddButton from "./components/AddButton";
+import Feed from "./components/Feed";
+import Navbar from "./components/Navbar";
+import Rightbar from "./components/Rightbar";
+import Sidebar from "./components/Sidebar";
+import { DarkModeProvider } from "./hoc/DarkModeProvider";
+
 
 function App() {
+  const [isScrollVisible, setIsScrollVisible] = useState(true)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <DarkModeProvider >
+      <Box bgcolor={'background.default'} color={'text.primary'} >
+        <Navbar setIsScrollVisible={setIsScrollVisible} />
+        <Stack direction='row' spacing={{ xs: 0, sm: 2 }} justifyContent='space-between' >
+          <Sidebar/>
+          <Feed />
+          <Rightbar isScrollVisible={isScrollVisible} />
+        </Stack>
+        <AddButton setIsScrollVisible={setIsScrollVisible} />
+      </Box>
+    </DarkModeProvider>
+  )
 }
 
 export default App;
